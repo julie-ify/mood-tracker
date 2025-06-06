@@ -1,0 +1,2 @@
+class MoodQuote < ApplicationRecord
+end
