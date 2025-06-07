@@ -10,6 +10,9 @@
 # See https://docs.rubocop.org/rubocop/configuration
 plugins:
   - rubocop-rails
+  - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   TargetRubyVersion: 3.1.1

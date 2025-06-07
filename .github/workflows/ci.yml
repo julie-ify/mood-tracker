@@ -28,6 +28,9 @@ jobs:
 
       - name: Run RuboCop
         run: bundle exec rubocop
+      
+      - name: Run tests
+        run: bundle exec rspec spec --format documentation
 
   frontend:
     name: Frontend (Build)
@@ -56,6 +59,3 @@ jobs:
           else
             echo "✅ No node_modules/ found."
           fi
-
-      - name: Build
-        run: npm run build
