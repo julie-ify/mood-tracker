@@ -1,5 +1,5 @@
 class MoodQuote < ApplicationRecord
-  enum mood: {
+  enum :mood, {
     very_happy: 0,
     happy: 1,
     neutral: 2,
