@@ -20,6 +20,8 @@ class Checkin < ApplicationRecord
 
   validates :mood, :sleep, presence: true
   validate :feelings_count_within_limit
+  validate :valid_mood
+  validate :valid_sleep
 
   private
 
@@ -29,5 +31,17 @@ class Checkin < ApplicationRecord
     elsif feelings.size > 3
       errors.add(:feelings, 'cannot have more than 3 selected')
     end
+  end
+
+  def valid_mood
+    return if mood.in?(Checkin.moods.keys)
+
+    errors.add(:mood, 'is not a valid mood')
+  end
+
+  def valid_sleep
+    return if sleep.in?(Checkin.sleeps.keys)
+
+    errors.add(:sleep, 'is not a valid sleep')
   end
 end

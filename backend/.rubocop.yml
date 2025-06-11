@@ -12,6 +12,7 @@ plugins:
   - rubocop-rails
 
 AllCops:
+  SuggestExtensions: false
   TargetRubyVersion: 3.1.1
   NewCops: enable
   Exclude:
@@ -20,7 +21,6 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - 'config/**/*'
-    
 Rails/HasAndBelongsToMany:
   Enabled: false
 Layout/LineLength:
@@ -40,7 +40,6 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   AllowedMethods: ['describe']
   Max: 30
-
 Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
@@ -53,7 +52,6 @@ Style/DefWithParentheses:
   Enabled: false
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
-
 Layout/HashAlignment:
   EnforcedColonStyle: key
 Layout/ExtraSpacing:
