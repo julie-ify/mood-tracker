@@ -16,11 +16,7 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          RAILS_ENV: test
-          DB_USER: postgres
-          DB_HOST: localhost
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          DB_NAME: mood_tracker_test
         ports: 
           - 5432:5432
         options: >-
@@ -28,9 +24,11 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+    env:
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      RAILS_ENV: test
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
