@@ -94,6 +94,10 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.6.2)
+    dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
@@ -237,22 +241,12 @@ GEM
     rubocop-ast (1.45.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
-    rubocop-factory_bot (2.27.1)
-      lint_roller (~> 1.1)
-      rubocop (~> 1.72, >= 1.72.1)
     rubocop-rails (2.32.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.44.0, < 2.0)
-    rubocop-rspec (3.6.0)
-      lint_roller (~> 1.1)
-      rubocop (~> 1.72, >= 1.72.1)
-    rubocop-rspec_rails (2.31.0)
-      lint_roller (~> 1.1)
-      rubocop (~> 1.72, >= 1.72.1)
-      rubocop-rspec (~> 3.5)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     stringio (3.1.7)
@@ -277,6 +271,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  dotenv-rails
   error_highlight (>= 0.4.0)
   factory_bot_rails
   faker
@@ -285,10 +280,7 @@ DEPENDENCIES
   rails (~> 7.1.5, >= 7.1.5.1)
   rspec-rails (~> 6.0)
   rubocop
-  rubocop-factory_bot
   rubocop-rails
-  rubocop-rspec
-  rubocop-rspec_rails
   tzinfo-data
 
 RUBY VERSION

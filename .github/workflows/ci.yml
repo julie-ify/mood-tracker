@@ -12,21 +12,24 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres:14
         ports: ['5432:5432']
         env:
-          POSTGRES_DB: backend_test
-
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     env:
       RAILS_ENV: test
-      PGHOST: localhost
-      PGUSER: postgres
+      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
 
     defaults:
       run:
@@ -46,14 +49,15 @@ jobs:
 
       - name: Prepare database
         run: |
-          bundle exec rails db:create RAILS_ENV=test
-          bundle exec rails db:schema:load RAILS_ENV=test
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
 
       - name: Run RuboCop
         run: bundle exec rubocop
-      
+
       - name: Run tests
         run: bundle exec rspec spec --format documentation
+
 
   frontend:
     name: Frontend (Build)
