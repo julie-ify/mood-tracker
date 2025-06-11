@@ -28,4 +28,12 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  errors:
+    messages:
+      mood_invalid: "is not valid"
+      sleep_invalid: "is not a valid hour"
+      feelings_under_limit: "Must have one feeling selected"
+      feelings_over_limit: "Cannot have more than three feelings selected"
+      checkin_per_day: "You can only check in once per day"
+            
+        

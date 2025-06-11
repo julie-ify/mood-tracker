@@ -23,14 +23,22 @@ feelings.each do |feeling|
   Feeling.create(name: feeling)
 end
 
-feeling1 = Feeling.find_by(name: 'Anxious')
-feeling2 = Feeling.find_by(name: 'Excited')
-feeling3 = Feeling.find_by(name: 'Optimistic')
+db_feelings = Feeling.all
 
 Checkin.create!(
   user: User.find(1),
   mood: :happy,
   sleep: :seven_eight,
   reflection: 'Felt productive and calm today',
-  feeling_ids: [feeling1.id, feeling2.id, feeling3.id]
+  feeling_ids: [db_feelings.sample.id, db_feelings.sample.id, db_feelings.sample.id],
+  created_at: Time.zone.yesterday,
+  updated_at: Time.zone.yesterday
+)
+
+Checkin.create!(
+  user: User.find(1),
+  mood: :sad,
+  sleep: :zero_two,
+  reflection: 'Feeling week today',
+  feeling_ids: [db_feelings.sample.id, db_feelings.sample.id, db_feelings.sample.id]
 )
