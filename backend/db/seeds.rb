@@ -8,37 +8,29 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-puts "Started seeding ..."
-
 User.create(
-  name: "Mary Smith",
-  email: "mary@m.com",
-  password_digest: 'marysmith',
+  name: 'Mary Smith',
+  email: 'mary@m.com',
+  password_digest: 'marysmith'
 )
 
-
-feelings = ['JoyFul', 'Down', 'Anxious', 'Calm', 'Excited', 'Frustrated',
-  'Lonely', 'Grateful', 'Overwhelmed', 'Motivated', 'Irritable',
-    'Peaceful', 'Tired', 'Hopeful', 'Confident', 'Stressed', 'Content', 
-      'Disappointed', 'Optimistic', 'Restless' ]
+feelings = %w[JoyFul Down Anxious Calm Excited Frustrated
+              Lonely Grateful Overwhelmed Motivated Irritable
+              Peaceful Tired Hopeful Confident Stressed Content
+              Disappointed Optimistic Restless]
 
 feelings.each do |feeling|
-  Feeling.create(name: feeling);
+  Feeling.create(name: feeling)
 end
 
-
-feeling1 = Feeling.find_by(name: "Anxious")
-feeling2 = Feeling.find_by(name: "Excited")
-feeling3 = Feeling.find_by(name: "Optimistic")
-
+feeling1 = Feeling.find_by(name: 'Anxious')
+feeling2 = Feeling.find_by(name: 'Excited')
+feeling3 = Feeling.find_by(name: 'Optimistic')
 
 Checkin.create!(
   user: User.find(1),
   mood: :happy,
   sleep: :seven_eight,
-  reflection: "Felt productive and calm today",
+  reflection: 'Felt productive and calm today',
   feeling_ids: [feeling1.id, feeling2.id, feeling3.id]
 )
-
-
-puts "Finished seeding ..."
