@@ -9,14 +9,18 @@ jobs:
   backend:
     name: Backend (RuboCop & Tests)
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: backend
     services:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: postgres
+          RAILS_ENV: test
+          DB_USER: postgres
+          DB_HOST: localhost
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: mood_tracker_test
+          DB_NAME: mood_tracker_test
         ports: 
           - 5432:5432
         options: >-
@@ -24,10 +28,6 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
-    defaults:
-      run:
-        working-directory: backend
-
     steps:
       - uses: actions/checkout@v3
 
