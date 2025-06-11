@@ -12,14 +12,14 @@ RSpec.describe Checkin do
   it 'is invalid without feelings' do
     checkin = build(:checkin, feelings: [])
     checkin.save # triggers validations
-    expect(checkin.errors[:feelings]).to include('must select at least 1 feeling')
+    expect(checkin.errors[:feelings]).to include('Must have one feeling selected')
   end
 
   it 'is invalid with more than three feelings' do
     feelings = create_list(:feeling, 4)
     checkin = build(:checkin, feelings: feelings)
     checkin.valid? # triggers validations
-    expect(checkin.errors[:feelings]).to include('cannot have more than 3 selected')
+    expect(checkin.errors[:feelings]).to include('Cannot have more than three feelings selected')
   end
 
   it 'is invalid without mood' do
