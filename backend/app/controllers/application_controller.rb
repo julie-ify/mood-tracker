@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include Authentication
+
   rescue_from ArgumentError, with: :handle_invalid_enum
 
   private
@@ -7,7 +9,5 @@ class ApplicationController < ActionController::API
     raise exception unless exception.message.match?(/is not a valid/)
 
     render json: { error: exception.message }, status: :unprocessable_entity
-
-    # re-raise other ArgumentErrors
   end
 end

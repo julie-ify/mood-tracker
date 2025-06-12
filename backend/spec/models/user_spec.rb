@@ -7,17 +7,17 @@ RSpec.describe User do
   end
 
   it 'is invalid without name' do
-    user = build(:user, name: '')
+    user = build(:user, name: nil)
     expect(user).not_to be_valid
   end
 
   it 'is invalid without password' do
-    user = build(:user, password_digest: :null)
+    user = build(:user, password: nil)
     expect(user).not_to be_valid
   end
 
   it 'is invalid without email' do
-    user = build(:user, email: :null)
+    user = build(:user, email: :nil)
     expect(user).not_to be_valid
   end
 
