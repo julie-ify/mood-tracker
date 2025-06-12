@@ -8,11 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create(
-  name: 'Mary Smith',
-  email: 'mary@m.com',
-  password_digest: 'marysmith'
-)
+user = User.last
 
 feelings = %w[JoyFul Down Anxious Calm Excited Frustrated
               Lonely Grateful Overwhelmed Motivated Irritable
@@ -26,7 +22,7 @@ end
 db_feelings = Feeling.all
 
 Checkin.create!(
-  user: User.find(1),
+  user: user,
   mood: :happy,
   sleep: :seven_eight,
   reflection: 'Felt productive and calm today',
@@ -36,7 +32,7 @@ Checkin.create!(
 )
 
 Checkin.create!(
-  user: User.find(1),
+  user: user,
   mood: :sad,
   sleep: :zero_two,
   reflection: 'Feeling week today',

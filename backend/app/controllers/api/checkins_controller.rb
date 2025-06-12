@@ -1,4 +1,5 @@
-class CheckinsController < ApplicationController
+class Api::CheckinsController < ApplicationController
+  before_action :authenticate_user!
   def index
     checkins = Checkin.where(user_id: 1)
     render json: checkins, status: :ok
