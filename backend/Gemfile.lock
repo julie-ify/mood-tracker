@@ -83,6 +83,9 @@ GEM
       mutex_m
       securerandom (>= 0.3)
       tzinfo (~> 2.0)
+    apipie-rails (1.4.2)
+      actionpack (>= 5.0)
+      activesupport (>= 5.0)
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.20)
@@ -304,6 +307,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
+  apipie-rails
   bcrypt (~> 3.1.7)
   bootsnap
   cloudinary

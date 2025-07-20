@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include Authentication
+  include ApipieExamples
 
   rescue_from ArgumentError, with: :handle_invalid_enum
 
