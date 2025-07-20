@@ -1,0 +1,14 @@
+---
+- id: 1
+  mood: happy
+  sleep: seven_eight
+  feelings:
+    - id: 1
+      name: Calm
+    - id: 2
+      name: Grateful
+  user:
+    id: 1
+    name: Mary
+    email: mary@example.com
+  created_at: 1718190101

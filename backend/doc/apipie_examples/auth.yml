@@ -1,0 +1,7 @@
+---
+user:
+  id: 1
+  name: Mary Jane
+  email: mary@example.com
+  avatar_url: https://res.cloudinary.com/your-cloud/image/upload/v123/avatar/avatar.jpg
+token: jwt.token.here
