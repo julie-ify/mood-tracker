@@ -9,7 +9,7 @@ class Api::AuthController < ApplicationController
         user.update(avatar_url: upload['secure_url'], avatar_public_id: upload['public_id'])
       end
 
-      render json: { user: user, token: token }, status: :created
+      render json: { user: Api::AuthSerializer.new(user), token: token }, status: :created
     else
       render json: { errors: user.errors }, status: :unprocessable_entity
     end
@@ -18,12 +18,10 @@ class Api::AuthController < ApplicationController
   def login
     user = User.find_by(email: params[:email])
 
-    Rails.logger.debug user
-
     if user&.authenticate(params[:password])
       token = AuthenticationService.encode({ user_id: user.id })
 
-      render json: { user: user, token: token }
+      render json: { user: Api::AuthSerializer.new(user), token: token }, status: :ok
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end

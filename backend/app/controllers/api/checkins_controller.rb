@@ -1,12 +1,12 @@
 class Api::CheckinsController < ApplicationController
   before_action :authenticate_user!
   def index
-    checkins = Checkin.where(user_id: 1)
-    render json: checkins, status: :ok
+    checkins = current_user.checkins.includes(:feelings)
+    render json: checkins, each_serializer: Api::CheckinSerializer, status: :ok
   end
 
   def show
-    checkin = Checkin.find_by(id: params[:id])
+    checkin = current_user.checkins.find_by(id: params[:id])
 
     if checkin
       render json: checkin, status: :ok
