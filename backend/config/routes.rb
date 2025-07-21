@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     post '/login', to: 'auth#login'
 
     resources :checkins, only: %i[index show]
+    resources :feelings, only: %i[index]
   end
 end
