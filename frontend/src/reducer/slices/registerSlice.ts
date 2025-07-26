@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { RegisterState } from '../../interfaces/user';
+import type { RegisterState } from '../../interfaces/types';
 
 interface FieldInterface {
 	field: keyof RegisterState;
@@ -20,9 +20,8 @@ const registerSlice = createSlice({
 			const { field, value } = action.payload;
 			(state as any)[field] = value;
 		},
-		resetRegister: () => initialState,
 	},
 });
 
-export const { setRegisterField, resetRegister } = registerSlice.actions;
+export const { setRegisterField } = registerSlice.actions;
 export default registerSlice.reducer;

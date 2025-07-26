@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import Logo from '../assets/logo.svg';
-import Avatar from '../assets/Avatar.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { setRegisterField } from '../reducer/slices/registerSlice';
-import type { RootState } from '../reducer/store';
-import type { RegisterState } from '../interfaces/user';
-import useUserData from '../hooks/useUserData';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Logo, Avatar } from '../assets';
+import { type RootState, setRegisterField } from '../reducer';
+import type { RegisterState } from '../interfaces/types';
+import { useAppData } from '../hooks';
 
 const OnBoarding = () => {
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-	const { createUser } = useUserData();
+	const { createUser } = useAppData();
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
