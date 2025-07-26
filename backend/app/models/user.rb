@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   before_validation :downcase_email
 
-  validates :name, presence: true
+  validates :name, length: { minimum: 3 }, allow_blank: true
   validates :password, presence: true, length: { in: 6..20 }, on: :create
   validates :email, presence: true, uniqueness: { case_sensitive: false },
                     format: { with: URI::MailTo::EMAIL_REGEXP } # Built-in regex for valid email structure

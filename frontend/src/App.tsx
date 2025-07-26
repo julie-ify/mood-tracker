@@ -1,9 +1,9 @@
+import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Signup from './auth/Signup.tsx';
 import Login from './auth/Login.tsx';
 import OnBoarding from './auth/OnBoarding.tsx';
 import HomePage from './pages/HomePage';
-import './App.css';
 
 const App = () => {
 	return (
