@@ -1,20 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../assets/logo.svg';
+import type { ChangeEvent, FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setRegisterField } from '../reducer/slices/registerSlice';
-import { type RootState } from '../reducer/store';
-import type { RegisterState } from '../interfaces/user';
-
+import { Logo } from '../assets';
+import { type RootState, setRegisterField } from '../reducer';
+import { type RegisterState } from '../interfaces/types';
+import { FormInput } from '../components';
+import { useAuthValidation } from '../hooks';
 
 const Signup = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { authError, validateAuth } = useAuthValidation();
 
 	const { email, password } = useSelector((state: RootState) => state.register);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		dispatch(
 			setRegisterField({
 				field: e.target.name as keyof RegisterState,
@@ -23,9 +23,10 @@ const Signup = () => {
 		);
 	};
 
-	const handleNext = (e: React.FormEvent) => {
+	const handleNext = (e: FormEvent) => {
 		e.preventDefault();
-		if (!email || !password) return alert('Fill required fields');
+
+		if (!validateAuth(email, password)) return;
 		navigate('/onboarding');
 	};
 
@@ -36,9 +37,9 @@ const Signup = () => {
 			</div>
 			<form
 				onSubmit={handleNext}
-				className="bg-neutral-0 mx-4 py-10 px-8 rounded-2xl shadow-custom flex flex-col gap-y-8 tablet:w-[530px] tablet:h-[503px] desktop:w-[530px] desktop:h-[530px]"
+				className="bg-neutral-0 mx-4 py-10 px-8 rounded-2xl shadow-custom flex flex-col tablet:w-[530px] tablet:h-[503px] desktop:w-[530px] desktop:h-[530px]"
 			>
-				<div className="flex flex-col gap-y-2">
+				<div className="flex flex-col gap-y-2 mb-8">
 					<h1 className="text-preset-3-b text-neutral-900">
 						Create an account
 					</h1>
@@ -47,34 +48,28 @@ const Signup = () => {
 					</p>
 				</div>
 				<div className="flex flex-col gap-y-5">
-					<div className="flex flex-col gap-y-2">
-						<label htmlFor="email" className="text-preset-6-r text-neutral-900">
-							Email address
-						</label>
-						<input
-							name="email"
-							type="text"
-							id="email"
-							placeholder="name@gmail.com"
-							value={email}
-							onChange={handleChange}
-							className="text-neutral-900 px-4 py-3 placeholder-neutral-600 rounded-[10px] text-preset-6-r border border-neutral-300 focus:outline-blue-600 hover:border-neutral-600"
-						/>
-					</div>
-					<div className="flex flex-col gap-y-2">
-						<label htmlFor="password">Password</label>
-						<input
-							name="password"
-							type="password"
-							id="password"
-							placeholder="password"
-							value={password}
-							onChange={handleChange}
-							className="text-neutral-900 px-4 py-3 placeholder-neutral-600 rounded-[10px] text-preset-6-r border border-neutral-300 focus:outline-blue-600 hover:border-neutral-600"
-						/>
-					</div>
+					<FormInput
+						id="email"
+						name="email"
+						label="Email address"
+						type="text"
+						placeholder="name@gmail.com"
+						value={email}
+						onChange={handleChange}
+						error={authError.emailErrorMsg}
+					/>
+					<FormInput
+						id="password"
+						name="password"
+						label="Password"
+						type="password"
+						placeholder="password"
+						value={password}
+						onChange={handleChange}
+						error={authError.passwordErrorMsg}
+					/>
 				</div>
-				<div className="flex flex-col gap-y-5 justify-center items-center">
+				<div className="flex flex-col gap-y-5 justify-center items-center mt-8">
 					<button className="bg-blue-600 px-8 py-3 w-full rounded-[10px] text-neutral-0 text-preset-5-b">
 						Sign Up
 					</button>

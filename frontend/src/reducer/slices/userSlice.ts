@@ -1,9 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-interface UserState {
-	email: string;
-	token: string;
-}
+import { type UserState } from '../../interfaces/types';
 
 const initialState: UserState = {
 	email: '',
