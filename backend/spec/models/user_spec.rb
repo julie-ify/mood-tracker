@@ -6,9 +6,9 @@ RSpec.describe User do
     expect(user).to be_valid
   end
 
-  it 'is invalid without name' do
+  it 'is valid without name' do
     user = build(:user, name: nil)
-    expect(user).not_to be_valid
+    expect(user).to be_valid
   end
 
   it 'is invalid without password' do

@@ -1,13 +1,68 @@
+import React, { useState } from 'react';
 import Logo from '../assets/logo.svg';
 import Avatar from '../assets/Avatar.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRegisterField } from '../reducer/slices/registerSlice';
+import type { RootState } from '../reducer/store';
+import type { RegisterState } from '../interfaces/user';
+import useUserData from '../hooks/useUserData';
+import { useNavigate } from 'react-router-dom';
 
 const OnBoarding = () => {
+	const [avatarFile, setAvatarFile] = useState<File | null>(null);
+	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+	const { createUser } = useUserData();
+
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const { name, email, password } = useSelector(
+		(state: RootState) => state.register
+	);
+
+	const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			setAvatarFile(file);
+			setAvatarPreview(URL.createObjectURL(file));
+		}
+	};
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch(
+			setRegisterField({
+				field: e.target.name as keyof RegisterState,
+				value: e.target.value,
+			})
+		);
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		const formData = new FormData();
+		formData.append('email', email);
+		formData.append('password', password);
+		formData.append('name', name ?? '');
+		if (avatarFile instanceof File) {
+			formData.append('avatar', avatarFile);
+		}
+
+		try {
+			await createUser(formData);
+			navigate('/');
+		} catch (error) {}
+	};
+
 	return (
 		<div className="flex flex-col justify-center items-center pt-20">
 			<div className="pb-8 tablet:pb-12 flex items-center">
 				<img src={Logo} alt="Logo icon" className="w-[177px] h-[40px]" />
 			</div>
-			<form className="bg-neutral-0 mx-4 py-10 px-8 rounded-2xl shadow-custom flex flex-col gap-y-8 tablet:w-[530px] tablet:h-[503px] desktop:w-[530px] desktop:h-[530px]">
+			<form
+				onSubmit={handleSubmit}
+				className="bg-neutral-0 mx-4 py-10 px-8 rounded-2xl shadow-custom flex flex-col gap-y-8 tablet:w-[530px] tablet:h-[503px] desktop:w-[530px] desktop:h-[530px]"
+			>
 				<div className="flex flex-col gap-y-2">
 					<h1 className="text-preset-3-b text-neutral-900">
 						Personalize your experience
@@ -18,20 +73,22 @@ const OnBoarding = () => {
 				</div>
 				<div className="flex flex-col gap-y-5">
 					<div className="flex flex-col gap-y-2">
-						<label htmlFor="email" className="text-preset-6-r text-neutral-900">
+						<label htmlFor="name" className="text-preset-6-r text-neutral-900">
 							Name
 						</label>
 						<input
+							onChange={handleChange}
+							name="name"
 							type="text"
-							id="email"
+							id="name"
 							placeholder="Jane Appleseed"
-							className="text-neutral-0 px-4 py-3 placeholder-neutral-600 rounded-[10px] text-preset-6-r border border-neutral-300"
+							className="text-neutral-900 px-4 py-3 placeholder-neutral-600 rounded-[10px] text-preset-6-r border border-neutral-300 focus:outline-blue-600 hover:border-neutral-600"
 						/>
 					</div>
 
 					<div className="flex gap-x-5">
 						<img
-							src={Avatar}
+							src={avatarPreview || Avatar}
 							alt="Avatar preview"
 							className="w-16 h-16 rounded-full object-cover"
 						/>
@@ -54,9 +111,11 @@ const OnBoarding = () => {
 							</label>
 
 							<input
+								name="avatar"
 								type="file"
 								id="avatar"
 								accept="image/png, image/jpeg"
+								onChange={handleAvatarChange}
 								className="hidden"
 							/>
 						</div>
