@@ -34,12 +34,13 @@ export default {
 				// sb => semibold
 				// r => regular
 				// i => italic
-				'preset-1-b': ['52px', { lineHeight: '140%', letterSpacing: '-0.125em', fontWeight: 'bold' }],
-				'preset-1-b-mb': ['46px', { lineHeight: '120%', letterSpacing: '-0.3px', fontWeight: 'bold' }],
+				'preset-1-b': ['52px', { lineHeight: '140%', letterSpacing: '-2px', fontWeight: 'bold' }],
+				'preset-1-b-mb': ['46px', { lineHeight: '120%', letterSpacing: '-2px', fontWeight: 'bold' }],
 				'preset-2-b': ['40px', { lineHeight: '120%', letterSpacing: '-0.3px', fontWeight: 'bold' }],
 				'preset-2-b-mb': ['32px', { lineHeight: '120%', letterSpacing: '-0.3px', fontWeight: 'bold' }],
 				'preset-3-b': ['32px', { lineHeight: '140%', letterSpacing: '-0.3px', fontWeight: 'bold' }],
 				'preset-3-b-mb': ['28px', { lineHeight: '130%', letterSpacing: '-0.3px', fontWeight: 'bold' }],
+				'preset-4-b': ['24px', { lineHeight: '130%', letterSpacing: '-0.3px', fontWeight: 'bold' }],
 				'preset-4-sb': ['24px', { lineHeight: '140%', fontWeight: 'semibold' }],
 				'preset-4-r': ['24px', { lineHeight: '140%', fontWeight: 'normal' }],
 				'preset-5-b': ['20px', { lineHeight: '140%', fontWeight: 'bold' }],
@@ -54,7 +55,7 @@ export default {
 			screens: {
 				// mobile is the default
 				tablet: '768px',
-				desktop: '1440px',
+				desktop: '1280px',
 			},
 		},
 	},

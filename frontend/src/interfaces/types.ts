@@ -9,7 +9,21 @@ export interface LoginState {
 	password: string;
 }
 
-export interface UserState {
-	email: string;
-	token: string;
+interface User {
+	name: string;
+	checkins: Checkin[];
+	avatar_url?: string;
+}
+
+export interface Checkin {
+	feelings: any;
+	mood: string;
+	sleep: string;
+	reflection: string;
+	createdAt: Date;
+}
+
+export interface AuthState {
+	user: User | null;
+	token: string | null
 }
