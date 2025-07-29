@@ -5,8 +5,8 @@ class Api::CheckinsController < ApplicationController
   description 'Returns a list of check-ins for the current user.'
   example ApipieExamples.load_example('checkins_index.yml')
   def index
-    checkins = current_user.checkins.includes(:feelings)
-    render json: checkins, each_serializer: Api::CheckinSerializer, status: :ok
+    user = current_user
+    render json: { user: Api::AuthSerializer.new(user) }, status: :ok
   end
 
   api :GET, '/checkins/:id', 'Get a single check-in for the current user'
