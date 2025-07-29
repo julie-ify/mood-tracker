@@ -12,8 +12,8 @@ class Api::AuthSerializer < ApplicationSerializer
           {
             id: feeling.id,
             name: feeling.name
-        }
-      end,
+          }
+        end,
         reflection: checkin.reflection
       }
     end
