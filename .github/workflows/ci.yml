@@ -9,14 +9,17 @@ jobs:
   backend:
     name: Backend (RuboCop & Tests)
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: backend
+    
     services:
       postgres:
         image: postgres:14
         env:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USERNAME }}
         ports: 
           - 5432:5432
         options: >-
@@ -24,11 +27,14 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+    
     env:
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       RAILS_ENV: test
+      DATABASE_URL: postgres://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/postgres
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -37,7 +43,7 @@ jobs:
 
       - name: Install dependencies
         run: bundle install
-
+      
       - name: Prepare database
         run: |
           bundle exec rails db:create
@@ -47,7 +53,7 @@ jobs:
         run: bundle exec rubocop
 
       - name: Run tests
-        run: bundle exec rspec spec --format documentation
+        run: bundle exec rspec --format documentation
 
 
   frontend:
@@ -59,15 +65,17 @@ jobs:
         working-directory: frontend
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Check for committed node_modules
         run: |
@@ -77,3 +85,7 @@ jobs:
           else
             echo "✅ No node_modules/ found."
           fi
+
+      - name: Lint code
+        run: npm run lint
+

@@ -17,7 +17,7 @@ const loginSlice = createSlice({
 	reducers: {
 		setLoginField: (state, action: PayloadAction<FieldInterface>) => {
 			const { field, value } = action.payload;
-			(state as any)[field] = value;
+			(state as LoginState)[field] = value;
 		},
 	},
 });

@@ -1,7 +1,7 @@
 export interface RegisterState {
 	email: string;
 	password: string;
-	name?: string;
+	name: string;
 }
 
 export interface LoginState {
@@ -16,14 +16,20 @@ interface User {
 }
 
 export interface Checkin {
-	feelings: any;
+	feelings: string[];
 	mood: string;
 	sleep: string;
 	reflection: string;
-	createdAt: Date;
+	created_at: Date;
 }
 
 export interface AuthState {
 	user: User | null;
 	token: string | null
+}
+
+export interface AverageCheckin {
+	date: string;
+	sleep: string;
+	mood: string;
 }

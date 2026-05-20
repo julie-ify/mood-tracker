@@ -8,3 +8,6 @@ export { default as Sad } from './sad.svg';
 export { default as Neutral } from './neutral.svg';
 export { default as VeryHappy } from './very-happy.svg';
 export { default as Happy } from './happy.svg';
+export { default as ArrowStraight } from './arrow-straight.svg';
+export { default as SleepStatusIcon } from './sleep-status-icon.svg';
+export { default as ArrowUp } from './arrow-right-up.svg';
