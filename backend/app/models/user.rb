@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :checkins, dependent: :destroy
 
-  before_validation :downcase_email
+  before_validation :downcase_email, :normalize_name
 
   validates :name, presence: true, length: { minimum: 3 }
   validates :password, presence: true, length: { in: 6..20 }, on: :create
@@ -16,10 +16,8 @@ class User < ApplicationRecord
   end
 
   def normalize_name
-    if name.strip.split.size < 2
-      self.name = name.strip.titleize if name.present?
-    else
-      self.name = name.strip.split.map(&:capitalize).join(' ') if name.present?
-    end
+    return if name.blank?
+
+    self.name = name.squish.titleize
   end
 end
