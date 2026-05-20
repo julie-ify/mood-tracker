@@ -1,4 +1,3 @@
-# app/models/concerns/checkin_validations.rb
 module CheckinValidations
   extend ActiveSupport::Concern
 
