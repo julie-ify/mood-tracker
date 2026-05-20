@@ -9,13 +9,15 @@ import { useAppData } from '../hooks';
 const OnBoarding = () => {
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+	const [error, setError] = useState<string | null>(null);
+
 	const { createUser } = useAppData();
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const { name, email, password } = useSelector(
-		(state: RootState) => state.register
+		(state: RootState) => state.register,
 	);
 
 	const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +33,7 @@ const OnBoarding = () => {
 			setRegisterField({
 				field: e.target.name as keyof RegisterState,
 				value: e.target.value,
-			})
+			}),
 		);
 	};
 
@@ -49,13 +51,26 @@ const OnBoarding = () => {
 		try {
 			await createUser(formData);
 			navigate('/');
-		} catch (error) {}
+		} catch (error) {
+			setError('Failed to create user');
+		}
 	};
 
 	return (
 		<div className="flex flex-col justify-center items-center pt-20">
 			<div className="pb-8 tablet:pb-12 flex items-center">
 				<img src={Logo} alt="Logo icon" className="w-[177px] h-[40px]" />
+			</div>
+			<div className="mb-6">
+				{error && (
+					<div
+						className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+						role="alert"
+					>
+						<strong className="font-bold">Error: </strong>
+						<span className="block sm:inline">{error}</span>
+					</div>
+				)}
 			</div>
 			<form
 				onSubmit={handleSubmit}

@@ -18,7 +18,7 @@ const registerSlice = createSlice({
 	reducers: {
 		setRegisterField: (state, action: PayloadAction<FieldInterface>) => {
 			const { field, value } = action.payload;
-			(state as any)[field] = value;
+			(state as RegisterState)[field] = value;
 		},
 	},
 });

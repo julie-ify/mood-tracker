@@ -15,7 +15,7 @@ const Dashboard = () => {
 				<Navbar profileImage={user?.avatar_url} />
 				<div className="flex flex-col gap-y-4 text-center tablet:gap-y-[10px]">
 					<h1 className="text-preset-4-b text-blue-600 tablet:text-preset-3-b">
-						Hello, {user?.name ? user.name : 'There'}!
+						Hello, {user?.name || 'There'}!
 					</h1>
 					<h1 className="text-preset-1-b-mb text-neutral-900 tablet:text-preset-1-b">
 						How are you feeling today?

@@ -85,3 +85,7 @@ jobs:
           else
             echo "✅ No node_modules/ found."
           fi
+
+      - name: Lint code
+        run: npm run lint
+
