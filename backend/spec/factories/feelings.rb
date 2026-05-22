@@ -4,6 +4,7 @@ FEELING_NAMES = %w[
   Peaceful Tired Hopeful Confident Stressed Content
   Disappointed Optimistic Restless
 ].freeze
+
 FactoryBot.define do
   factory :feeling do
     name { FEELING_NAMES.sample }
