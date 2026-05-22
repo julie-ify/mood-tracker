@@ -4,16 +4,26 @@ RSpec.describe 'Api::Users', type: :request do
   describe 'PATCH /profile' do
     let(:user) { create(:user) }
 
+    before do
+      allow(Cloudinary::Uploader).to receive(:upload).and_return({
+                                                                   'secure_url' => 'http://test.com/avatar.png',
+                                                                   'public_id' => 'user_2_avatar'
+                                                                 })
+    end
+
     it 'updates user profile with avatar' do
+      avatar = Rack::Test::UploadedFile.new(
+        Rails.root.join('spec/fixtures/files/avatar.png'),
+        'image/png'
+      )
+
       patch '/api/profile',
             params: {
               name: 'John Doe',
-              avatar: fixture_file_upload(
-                Rails.root.join('spec/fixtures/files/avatar.png'),
-                'image/png'
-              )
+              avatar: avatar
             },
-            headers: auth_headers(user)
+            headers: auth_headers(user),
+            as: :multipart
 
       expect(response).to have_http_status(:ok)
 
