@@ -11,7 +11,6 @@ const Signup = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { authError, validateAuth } = useAuthValidation();
-
 	const { email, password } = useSelector((state: RootState) => state.register);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +32,9 @@ const Signup = () => {
 	return (
 		<div className="flex flex-col justify-center items-center pt-20">
 			<div className="pb-8 tablet:pb-12 flex items-center">
-				<img src={Logo} alt="Logo icon" className="w-[177px] h-[40px]" />
+				<Link to={'/'}>
+					<img src={Logo} alt="Logo icon" className="w-[177px] h-[40px]" />
+				</Link>
 			</div>
 			<form
 				onSubmit={handleNext}

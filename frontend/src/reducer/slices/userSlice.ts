@@ -17,9 +17,18 @@ const userSlice = createSlice({
 		logout(state) {
 			state.user = null
 			state.token = null
+			localStorage.removeItem('token');
+		},
+		update(state, action: PayloadAction<{ name?: string; avatar_url?: string }>) {
+			if (state.user) {
+				state.user = {
+					...state.user,
+					...action.payload,
+				};
+			}
 		},
 	},
 });
 
-export const { setUser, logout } = userSlice.actions;
+export const { setUser, logout, update } = userSlice.actions;
 export default userSlice.reducer;

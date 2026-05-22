@@ -1,17 +1,27 @@
-import type { FC } from 'react';
-import { Logo, Avatar, AngleDown } from '../assets';
+import { Logo, Avatar } from '../assets';
+import { ChevronDown } from 'lucide-react';
 
-const Navbar: FC<{ profileImage: string | undefined }> = ({ profileImage }) => {
+interface NavbarFace {
+	profileImage: string | undefined;
+	toggleMenu: () => void;
+}
+
+const Navbar = ({ profileImage, toggleMenu }: NavbarFace) => {
 	return (
 		<div className="flex w-full justify-between">
 			<img src={Logo} alt="Logo icon" className="w-[177px] h-[40px]" />
-			<div className="flex gap-x-[10px]">
+			<div
+				className="flex items-center gap-[2px] cursor-pointer h-[40px] w-[65px]"
+				onClick={toggleMenu}
+			>
 				<img
 					src={profileImage ? profileImage : Avatar}
 					alt="Profile Avatar"
-					className="w-[40px] h-[40px] rounded-[832.5px]"
+					className="w-[40px] h-[40px] rounded-[612.5px]"
 				/>
-				<img src={AngleDown} alt="Angle down icon" />
+				<div>
+					<ChevronDown className="text-neutral-900" />
+				</div>
 			</div>
 		</div>
 	);

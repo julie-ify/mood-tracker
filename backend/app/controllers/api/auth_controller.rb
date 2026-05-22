@@ -5,19 +5,28 @@ class Api::AuthController < ApplicationController
   param :password, String, desc: 'Password', required: true
   param :avatar, ActionDispatch::Http::UploadedFile, desc: 'User avatar', required: false
   example ApipieExamples.load_example('auth.yml')
+
   def signup
     user = User.new(user_params.except(:avatar))
 
     if user.save
       token = AuthenticationService.encode({ user_id: user.id })
+
       if params[:avatar].present?
-        upload = AvatarUploadService.upload(io: params[:avatar], user: user)
+        result = AvatarUploadService.upload(io: params[:avatar], user: user)
+
+        unless result[:success]
+          render json: { error: { message: result[:error] } }, status: :unprocessable_entity and return
+        end
+
+        upload = result[:data]
+
         user.update(avatar_url: upload['secure_url'], avatar_public_id: upload['public_id'])
       end
 
       render json: { user: Api::AuthSerializer.new(user), token: token }, status: :created
     else
-      render json: { errors: user.errors }, status: :unprocessable_entity
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -25,6 +34,7 @@ class Api::AuthController < ApplicationController
   param :email, String, desc: 'Email address', required: true
   param :password, String, desc: 'Password', required: true
   example ApipieExamples.load_example('auth.yml')
+
   def login
     user = User.find_by(email: params[:email])
 
@@ -33,7 +43,7 @@ class Api::AuthController < ApplicationController
 
       render json: { user: Api::AuthSerializer.new(user), token: token }, status: :ok
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render json: { error: { message: 'Invalid email or password' } }, status: :unauthorized
     end
   end
 

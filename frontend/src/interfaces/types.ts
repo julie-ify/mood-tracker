@@ -13,10 +13,16 @@ interface User {
 	name: string;
 	checkins: Checkin[];
 	avatar_url?: string;
+	email: string;
+}
+
+export interface FeelingFace {
+	id: number;
+	name: string;
 }
 
 export interface Checkin {
-	feelings: string[];
+	feelings: FeelingFace[];
 	mood: string;
 	sleep: string;
 	reflection: string;

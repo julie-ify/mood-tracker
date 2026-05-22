@@ -16,6 +16,6 @@ module Authentication
   private
 
   def unauthorized_response
-    render json: { error: 'Unauthorized' }, status: :unauthorized
+    render json: { error: { message: 'Unauthorized' } }, status: :unauthorized
   end
 end

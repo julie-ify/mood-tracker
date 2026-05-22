@@ -1,7 +1,7 @@
 import type { ChangeEvent, FC } from 'react';
-import { Error } from './';
+import { ErrorMessage } from './';
 
-interface FormInputProps {
+interface FormInputFace{
 	id: string;
 	name: string;
 	label: string;
@@ -12,7 +12,7 @@ interface FormInputProps {
 	error?: string;
 }
 
-const FormInput: FC<FormInputProps> = ({
+const FormInput: FC<FormInputFace> = ({
 	id,
 	name,
 	label,
@@ -36,7 +36,7 @@ const FormInput: FC<FormInputProps> = ({
 				onChange={onChange}
 				className="text-neutral-900 px-4 py-3 placeholder-neutral-600 rounded-[10px] text-preset-6-r border border-neutral-300 focus:outline-blue-600 hover:border-neutral-600"
 			/>
-			{error && <Error message={error} />}
+			{error && <ErrorMessage message={error} />}
 		</div>
 	);
 };

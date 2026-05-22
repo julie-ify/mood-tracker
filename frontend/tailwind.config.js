@@ -44,6 +44,7 @@ export default {
 				'preset-4-sb': ['24px', { lineHeight: '140%', fontWeight: 'semibold' }],
 				'preset-4-r': ['24px', { lineHeight: '140%', fontWeight: 'normal' }],
 				'preset-5-b': ['20px', { lineHeight: '140%', fontWeight: 'bold' }],
+				'preset-6-b': ['18px', { lineHeight: '120%', fontWeight: 'bold' }],
 				'preset-6-m': ['18px', { lineHeight: '120%', fontWeight: 'medium' }],
 				'preset-6-i': ['18px', { lineHeight: '130%', fontWeight: 'medium' }],
 				'preset-6-r': ['18px', { lineHeight: '140%', letterSpacing: '-0.3px', fontWeight: 'normal' }],

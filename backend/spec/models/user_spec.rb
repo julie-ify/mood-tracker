@@ -31,4 +31,14 @@ RSpec.describe User do
     user = build(:user, email: 'test@example.com')
     expect(user).not_to be_valid
   end
+
+  it 'is invalid with a password shorter than 6 characters' do
+    user = build(:user, password: 'short')
+    expect(user).not_to be_valid
+  end
+
+  it 'is invalid with name shorter than 3 characters' do
+    user = build(:user, name: 'An')
+    expect(user).not_to be_valid
+  end
 end
