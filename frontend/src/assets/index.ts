@@ -1,7 +1,6 @@
 export { default as Logo } from './logo.svg';
 export { default as Avatar } from './avatar.svg';
 export { default as Hint } from './hint-icon.svg';
-export { default as AngleDown } from './angle-down.svg';
 export { default as Pattern } from './pattern.svg';
 export { default as VerySad } from './very-sad.svg';
 export { default as Sad } from './sad.svg';
@@ -10,4 +9,3 @@ export { default as VeryHappy } from './very-happy.svg';
 export { default as Happy } from './happy.svg';
 export { default as ArrowStraight } from './arrow-straight.svg';
 export { default as SleepStatusIcon } from './sleep-status-icon.svg';
-export { default as ArrowUp } from './arrow-right-up.svg';

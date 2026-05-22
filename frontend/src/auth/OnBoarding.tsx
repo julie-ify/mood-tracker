@@ -5,14 +5,13 @@ import { Logo, Avatar } from '../assets';
 import { type RootState, setRegisterField } from '../reducer';
 import type { RegisterState } from '../interfaces/types';
 import { useAppData } from '../hooks';
+import { ErrorMessage } from '../components';
 
 const OnBoarding = () => {
 	const [avatarFile, setAvatarFile] = useState<File | null>(null);
 	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
-
 	const { createUser } = useAppData();
-
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -40,6 +39,11 @@ const OnBoarding = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
+		if (!name) {
+			setError('Name is required');
+			return;
+		}
+
 		const formData = new FormData();
 		formData.append('email', email);
 		formData.append('password', password);
@@ -50,9 +54,11 @@ const OnBoarding = () => {
 
 		try {
 			await createUser(formData);
-			navigate('/');
-		} catch (error) {
-			setError('Failed to create user');
+			navigate('/dashboard');
+		} catch (error: unknown) {
+			setError(
+				error instanceof Error ? error.message : 'Failed to create user',
+			);
 		}
 	};
 
@@ -62,21 +68,19 @@ const OnBoarding = () => {
 				<img src={Logo} alt="Logo icon" className="w-[177px] h-[40px]" />
 			</div>
 			<div className="mb-6">
-				{error && (
-					<div
-						className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-						role="alert"
-					>
-						<strong className="font-bold">Error: </strong>
-						<span className="block sm:inline">{error}</span>
-					</div>
-				)}
+				<button 
+					onClick={() => navigate('/signup')}
+					className="text-blue-600 hover:text-blue-800"
+				>
+					Back
+				</button>
 			</div>
 			<form
 				onSubmit={handleSubmit}
 				className="bg-neutral-0 mx-4 py-10 px-8 rounded-2xl shadow-custom flex flex-col gap-y-8 tablet:w-[530px] tablet:h-[503px] desktop:w-[530px] desktop:h-[530px]"
 			>
 				<div className="flex flex-col gap-y-2">
+					{error && <ErrorMessage message={error} />}
 					<h1 className="text-preset-3-b text-neutral-900">
 						Personalize your experience
 					</h1>

@@ -6,7 +6,7 @@ import {
 	VeryHappy,
 	VerySad,
 } from '../assets';
-import type { Checkin, AverageCheckin } from '../interfaces/types';
+import type { Checkin, AverageCheckin, FeelingFace } from '../interfaces/types';
 type MoodKey = keyof typeof moodData;
 type SleepKey = keyof typeof sleepData;
 
@@ -108,7 +108,7 @@ export const formatCheckins = (checkins: Checkin[]) => {
 			hours: sleep?.hours || '',
 			mood: moodData[checkin.mood as keyof typeof moodData],
 			icon,
-			feelings: (checkin.feelings || []).map((f: { name: string }) => f.name),
+			feelings: (checkin.feelings || []).map((f: FeelingFace) => f.name),
 		};
 	});
 };

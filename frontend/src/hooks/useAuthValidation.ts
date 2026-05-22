@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { isValidEmail, isValidPassword } from '../utils/validation';
 
-type AuthError = {
+interface AuthErrorFace {
 	emailErrorMsg: string;
 	passwordErrorMsg: string;
 };
 
 const useAuthValidation = () => {
-	const [authError, setAuthError] = useState<AuthError>({
+	const [authError, setAuthError] = useState<AuthErrorFace>({
 		emailErrorMsg: '',
 		passwordErrorMsg: '',
 	});

@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Logo } from '../assets';
 import { type RootState, setLoginField } from '../reducer';
 import { type LoginState } from '../interfaces/types';
-import { FormInput, Loader } from '../components';
-import { useAuthValidation, useAppData } from '../hooks/';
+import { useAppData } from '../hooks/';
+import { ErrorMessage, FormInput, Loader } from '../components';
+import { isValidEmail } from '../utils/validation';
 
 const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { loginUser, loaderState } = useAppData();
-	const { authError, validateAuth } = useAuthValidation();
-
+	const [error, setError] = React.useState<string | null>(null);
 	const { email, password } = useSelector((state: RootState) => state.login);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,22 +20,33 @@ const Login = () => {
 			setLoginField({
 				field: e.target.name as keyof LoginState,
 				value: e.target.value,
-			})
+			}),
 		);
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (!validateAuth(email, password)) return;
+		if (!email || !password) {
+			setError('Email and password are required');
+			return;
+		}
+
+		if (!isValidEmail(email)) {
+			setError('Invalid email format');
+			return;
+		}
 
 		try {
 			await loginUser({ email, password });
 			navigate('/');
-		} catch (error) {
-			console.log('err', error);
+		} catch (error: unknown) {
+			setError(
+				error instanceof Error ? error.message : 'An unknown error occurred',
+			);
 		}
 	};
+
 	return (
 		<>
 			{loaderState && <Loader />}
@@ -49,6 +60,7 @@ const Login = () => {
 						className="bg-neutral-0 mx-4 py-10 px-8 rounded-2xl shadow-custom flex flex-col gap-y-8 tablet:w-[530px] tablet:h-[503px] desktop:w-[530px] desktop:h-[530px]"
 					>
 						<div className="flex flex-col gap-y-2">
+							{error && <ErrorMessage message={error} />}
 							<h1 className="text-preset-3-b text-neutral-900">
 								Welcome back!
 							</h1>
@@ -65,7 +77,6 @@ const Login = () => {
 								placeholder="name@gmail.com"
 								value={email}
 								onChange={handleChange}
-								error={authError.emailErrorMsg}
 							/>
 							<FormInput
 								id="password"
@@ -75,7 +86,6 @@ const Login = () => {
 								placeholder="password"
 								value={password}
 								onChange={handleChange}
-								error={authError.passwordErrorMsg}
 							/>
 						</div>
 						<div className="flex flex-col gap-y-5 justify-center items-center">

@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 .bg-soft-gradient {
 	background: linear-gradient(180deg, #f5f5ff 72.99%, #e0e0ff 100%);
 }
