@@ -2,7 +2,7 @@ class Checkin < ApplicationRecord
   include CheckinValidations
 
   belongs_to :user
-  has_and_belongs_to_many :feelings
+  has_and_belongs_to_many :feelings, through: 'checkins_feelings'
 
   MOODS = {
     very_happy: 0,
