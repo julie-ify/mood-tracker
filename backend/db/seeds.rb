@@ -1,9 +1,9 @@
 user = User.create(name: 'Jane', email: 'j@j.com', password: 'test1234')
 
-feelings = %w[JoyFul Down Anxious Calm Excited Frustrated
-              Lonely Grateful Overwhelmed Motivated Irritable
-              Peaceful Tired Hopeful Confident Stressed Content
-              Disappointed Optimistic Restless]
+feelings = %w[joyful down anxious calm excited frustrated
+              lonely grateful overwhelmed motivated irritable
+              peaceful tired hopeful confident stressed content
+              disappointed optimistic restless]
 
 feelings.each do |feeling|
   Feeling.create(name: feeling)

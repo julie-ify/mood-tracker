@@ -2,13 +2,13 @@
 id: 1
 mood: happy
 sleep: seven_eight
+reflection: "Had a great day! Feeling positive and energized."
 feelings:
   - id: 1
-    name: Calm
+    name: calm
   - id: 2
-    name: Grateful
+    name: grateful
 user:
-  id: 1
   name: Mary
   email: mary@example.com
 created_at: 1718190101

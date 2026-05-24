@@ -1,8 +1,8 @@
 FEELING_NAMES = %w[
-  JoyFul Down Anxious Calm Excited Frustrated
-  Lonely Grateful Overwhelmed Motivated Irritable
-  Peaceful Tired Hopeful Confident Stressed Content
-  Disappointed Optimistic Restless
+  joyful down anxious calm excited frustrated
+  lonely grateful overwhelmed motivated irritated
+  peaceful tired hopeful confident stressed content
+  disappointed optimistic restless
 ].freeze
 
 FactoryBot.define do

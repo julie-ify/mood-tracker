@@ -9,6 +9,6 @@ class ApplicationController < ActionController::API
   def handle_invalid_enum(exception)
     raise exception unless exception.message.match?(/is not a valid/)
 
-    render json: { error: { message: exception.message } }, status: :unprocessable_entity
+    render json: { error: exception.message }, status: :unprocessable_entity
   end
 end

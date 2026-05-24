@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::Users', type: :request do
-  describe 'PATCH /profile' do
+  describe 'PATCH /api/profile' do
     let(:user) { create(:user) }
 
     before do

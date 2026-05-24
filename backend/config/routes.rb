@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     post '/login', to: 'auth#login'
     patch '/profile', to: 'users#update'
 
-    resources :checkins, only: %i[index show]
+    resources :checkins, only: %i[index show, create]
     resources :feelings, only: %i[index]
   end
 end
